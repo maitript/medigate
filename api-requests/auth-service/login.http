@@ -1,0 +1,17 @@
+### POST request to login
+POST http://lb-5aca2aa0.elb.localhost.localstack.cloud:4004/auth/login
+Content-Type: application/json
+
+{
+  "email": "testuser@test.com",
+  "password": "password123"
+}
+
+> {%
+    if (response.body && response.body.token) {
+        client.global.set("token", response.body.token);
+        client.log("Token saved successfully!");
+    } else {
+        client.log("Token not found in response body");
+    }
+%}
