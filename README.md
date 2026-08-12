@@ -1,6 +1,15 @@
 # Patient Management
 
-A Spring Boot microservices system for managing patients, with JWT authentication, gRPC billing, Kafka analytics events, an API gateway, and AWS CDK infrastructure deployable to LocalStack.
+[![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-brightgreen?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![gRPC](https://img.shields.io/badge/RPC-gRPC-blue)](https://grpc.io/)
+[![Kafka](https://img.shields.io/badge/Messaging-Kafka-black?logo=apachekafka)](https://kafka.apache.org/)
+[![AWS CDK](https://img.shields.io/badge/Infra-AWS%20CDK%20%2B%20LocalStack-FF9900?logo=amazonwebservices&logoColor=white)](https://localstack.cloud/)
+[![License](https://img.shields.io/badge/License-see%20repo-lightgrey)](LICENSE)
+
+> Spring Boot microservices for patient CRUD with JWT auth, gRPC billing, Kafka analytics, an API gateway, and AWS CDK deployable to LocalStack.
+
+A multi-service patient platform: clients hit the gateway, auth issues JWTs, the patient service owns CRUD and fans out to billing (gRPC) and analytics (Kafka). Infrastructure is defined as CDK and can be exercised against LocalStack (ECS, RDS, MSK, ALB).
 
 ## Architecture
 
@@ -69,6 +78,11 @@ patient-management/
 
 ## Quick start (local services)
 
+```bash
+git clone https://github.com/maitript/patient-management.git
+cd patient-management
+```
+
 Run each service from its module (or via your IDE):
 
 ```bash
@@ -117,7 +131,7 @@ All client traffic should go through the gateway when deployed.
 | `PUT` | `/api/patients/{id}` | Update patient |
 | `DELETE` | `/api/patients/{id}` | Delete patient |
 
-Sample HTTP requests live under `api-requests/`.
+Sample HTTP requests live under `api-requests/`. gRPC samples: `grpc-requests/`.
 
 ## Docker images
 
@@ -160,3 +174,4 @@ Tests use Rest Assured against the running stack (auth + patient flows).
 - Gateway strips the `/auth` and `/api` prefixes before forwarding.
 - Patient routes require a valid JWT; auth routes do not.
 - Billing is invoked over gRPC (`9001`), not through the HTTP gateway.
+- Root `.gitignore` excludes IDE metadata (`.idea/`, `*.iml`) and Maven `target/` outputs.

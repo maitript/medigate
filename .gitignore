@@ -1,0 +1,30 @@
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# Build
+**/target/
+**/build/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env / local secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
