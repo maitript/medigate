@@ -77,8 +77,8 @@ public class LocalStack extends Stack {
     }
 
     private Vpc createVpc(){
-        return Vpc.Builder.create(this,"PatientManagementVPC")
-                .vpcName("PatientManagementVPC")
+        return Vpc.Builder.create(this,"MedigateVPC")
+                .vpcName("MedigateVPC")
                 .maxAzs(2)
                 .build();
     }
@@ -128,10 +128,10 @@ public class LocalStack extends Stack {
     }
 
     private  Cluster createEcsCluster(){
-        return Cluster.Builder.create(this,"PatientManagementCluster")
+        return Cluster.Builder.create(this,"MedigateCluster")
                 .vpc(vpc)
                 .defaultCloudMapNamespace(CloudMapNamespaceOptions.builder()
-                        .name("patient-management.local")
+                        .name("medigate.local")
                         .build())
                 .build();
     }

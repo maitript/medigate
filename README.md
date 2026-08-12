@@ -1,4 +1,4 @@
-# Patient Management
+# Medigate
 
 [![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-brightgreen?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
@@ -7,9 +7,9 @@
 [![AWS CDK](https://img.shields.io/badge/Infra-AWS%20CDK%20%2B%20LocalStack-FF9900?logo=amazonwebservices&logoColor=white)](https://localstack.cloud/)
 [![License](https://img.shields.io/badge/License-see%20repo-lightgrey)](LICENSE)
 
-> Spring Boot microservices for patient CRUD with JWT auth, gRPC billing, Kafka analytics, an API gateway, and AWS CDK deployable to LocalStack.
+> Healthcare API gateway platform — Spring Boot microservices for patient CRUD with JWT auth, gRPC billing, Kafka analytics, and AWS CDK on LocalStack.
 
-A multi-service patient platform: clients hit the gateway, auth issues JWTs, the patient service owns CRUD and fans out to billing (gRPC) and analytics (Kafka). Infrastructure is defined as CDK and can be exercised against LocalStack (ECS, RDS, MSK, ALB).
+**Medigate** sits at the edge of a multi-service patient platform: clients hit the gateway, auth issues JWTs, the patient service owns CRUD and fans out to billing (gRPC) and analytics (Kafka). Infrastructure is defined as CDK and can be exercised against LocalStack (ECS, RDS, MSK, ALB).
 
 ## Architecture
 
@@ -56,7 +56,7 @@ API Gateway (:4004)
 ## Project structure
 
 ```text
-patient-management/
+medigate/
 ├── api-gateway/          # Spring Cloud Gateway
 ├── auth-service/         # Authentication & JWT
 ├── patient-service/      # Patient REST API
@@ -79,8 +79,8 @@ patient-management/
 ## Quick start (local services)
 
 ```bash
-git clone https://github.com/maitript/patient-management.git
-cd patient-management
+git clone https://github.com/maitript/medigate.git
+cd medigate
 ```
 
 Run each service from its module (or via your IDE):
@@ -147,7 +147,7 @@ docker build -t api-gateway ./api-gateway
 
 ## Deploy with LocalStack + CDK
 
-Infrastructure is defined in `infrastructure/` as an AWS CDK Java app targeting LocalStack (VPC, ECS Fargate services, Postgres RDS, MSK Kafka, ALB).
+Infrastructure is defined in `infrastructure/` as an AWS CDK Java app targeting LocalStack (VPC, ECS Fargate services, Postgres RDS, MSK Kafka, ALB). Cloud Map namespace: `medigate.local`.
 
 1. Start LocalStack
 2. Synthesize / build the CDK template (`infrastructure/cdk.out/localstack.template.json`)
@@ -158,7 +158,7 @@ cd infrastructure
 ./localstack-deploy.sh
 ```
 
-The script deletes/redeploys the `patient-management` CloudFormation stack on `http://localhost:4566` and prints the load balancer DNS. Point gateway traffic at that host on port `4004`.
+The script deletes/redeploys the `medigate` CloudFormation stack on `http://localhost:4566` and prints the load balancer DNS. Point gateway traffic at that host on port `4004`.
 
 ## Integration tests
 
